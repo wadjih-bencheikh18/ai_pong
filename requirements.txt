@@ -1,4 +1,4 @@
 neat-python
 pygame
-gunicorn
 flask
+flask_cors
