@@ -22,7 +22,7 @@ const ball = {
   radius: 7,
   velocityX: 5,
   velocityY: 5,
-  speed: 7,
+  speed: 2,
   color: "WHITE",
 };
 
@@ -82,8 +82,9 @@ function getMousePos(evt) {
 function resetBall() {
   ball.x = canvas.width / 2;
   ball.y = canvas.height / 2;
-  ball.velocityX = (Math.round(Math.random()) * 2 - 1) * Math.random() * 5 + 5;
-  ball.speed = 7;
+  // (Math.round(Math.random()) * 2 - 1) * Math.random() * 5 + 10
+  ball.velocityX = -ball.velocityX;
+  ball.speed = 2;
 }
 
 // draw the net
@@ -143,8 +144,8 @@ function update(decision) {
   // computer plays for itself, and we must be able to beat it
   // simple AI
   // com.y += (ball.y - (com.y + com.height / 2)) * 0.1;
-  if (decision === 1) changePaddle(com, com.y - 4);
-  else if (decision === 2) changePaddle(com, com.y + 4);
+  if (decision === 1) changePaddle(com, com.y - 2);
+  else if (decision === 2) changePaddle(com, com.y + 2);
   // when the ball collides with bottom and top walls we inverse the y velocity.
   if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
     ball.velocityY = -ball.velocityY;
@@ -176,7 +177,7 @@ function update(decision) {
     ball.velocityY = ball.speed * Math.sin(angleRad);
 
     // speed up the ball everytime a paddle hits it.
-    ball.speed += 0.1;
+    ball.speed += 0.2;
   }
 }
 
@@ -208,7 +209,7 @@ function game() {
   render();
 }
 // number of frames per second
-let framePerSecond = 60;
+let framePerSecond = 200;
 
 //call the game function 50 times every 1 Sec
 let loop = setInterval(game, 1000 / framePerSecond);
